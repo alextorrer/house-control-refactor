@@ -27,7 +27,7 @@ public class DeviceParsing {
 
         }
         catch(FileNotFoundException ex){
-            throw new ParsingDeviceException("No se pudo encontrar el archivo con los dispositivos");
+            throw new ParsingDeviceException("The file with the devices could not be found");
         }
 
         return devices;
