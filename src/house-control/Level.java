@@ -1,96 +1,53 @@
 
 import java.util.ArrayList;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
 public class Level {
-    /*private int MAXROOMS = 5;
-    private int roomCounter;
-    private Room rooms[];*/
+
     private String name;
     private String IDLevel;
     private ArrayList<Room> rooms;
-    
-//Contructor dos parametros
-public Level(String IDLevel, String name, ArrayList<Room> rooms){
+
+    public Level(String IDLevel, String name, ArrayList<Room> rooms){
         this.IDLevel = IDLevel;
         this.name = name;
         this.rooms = rooms;
     }
 
-//Constructor un parámetro
-public Level(String name){
+    public Level(String name){
         this.name = name;
         this.rooms =  new ArrayList<Room>();
     }
 
-public int getCounterRooms(ArrayList<Room> rooms){
-    /*int roomCounter = 0;
-    for(int i = 0;i < rooms.length; i++){
-        if(rooms[i] != null){
-            roomCounter++;
-        }
-        else{
-            break;
-        }
-    }*/
-    return rooms.size();
-}
-
-public void addRoom(Room room){
-    /*boolean flag = false;
-    if(roomCounter<MAXROOMS){
-        rooms[roomCounter] = room;
-        roomCounter++;
-        flag = true;
-    }
-    return flag;*/
-    rooms.add(room);
-}
-
-   
-    /**
-     * @return the roomCounter
-     */
+    /***GETTERS & SETTERS***/
     public int getRoomCounter() {
         return rooms.size();
     }
 
-
-    /**
-     * @return the rooms
-     */
     public ArrayList<Room> getRooms() {
         return rooms;
     }
 
-    /**
-     * @param rooms the rooms to set
-     */
     public void setRooms(ArrayList<Room> rooms) {
         this.rooms = rooms;
     }
 
-    /**
-     * @return the name
-     */
     public String getName() {
         return name;
     }
 
-    /**
-     * @param name the name to set
-     */
     public void setName(String name) {
         this.name = name;
     }
-    
-    //searchRoom
+
+
+    public int getCounterRooms(ArrayList<Room> rooms){
+        return rooms.size();
+    }
+
+    public void addRoom(Room room){
+        rooms.add(room);
+    }
+
     public int searchRoom(Room otherRoom){
             int index = 0;
             boolean  flag = false;
@@ -104,9 +61,9 @@ public void addRoom(Room room){
                 index = -1;
             }
             return index;
-        }
-    
-    //removeRoom
+    }
+
+
     public boolean RemoveRoom(Room room){
             boolean flag= false;
             int pos= searchRoom(room);
@@ -203,7 +160,7 @@ public void addRoom(Room room){
               }
           }
       }          
-  }
+    }
   
     public boolean equals(Object obj){
         boolean flag = false;

@@ -1,17 +1,8 @@
 
 import java.util.ArrayList;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 
 public class House {
-    /*private final int MAXLEVELS = 5;
-    private int levelCounter;
-    private Level levels[];*/
     private ArrayList<Level> levels;
     private String name;
     
@@ -25,8 +16,6 @@ public class House {
     public House ( String name){
         this.levels = new ArrayList<Level>();
         this.name = name;
-        
-        
     }
     
     public void addLevel (Level level){
@@ -35,15 +24,6 @@ public class House {
     
     
     public int getLevelCounter(ArrayList<Level> levels){
-        /*int levelCounter = 0;
-        for(int i = 0;i < levels.size(); i++){
-            if(levels[ != null){
-                levelCounter++;
-            }
-            else{
-                break;
-            }
-        }*/
         return levels.size();
     
     }

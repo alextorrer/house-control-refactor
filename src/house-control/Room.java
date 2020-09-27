@@ -1,22 +1,13 @@
 
 import java.util.ArrayList;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 
 public class Room {
-    /*private final int MAXDEVICES = 20;
-    private int deviceCounter;
-    private Device devices[];*/
+
     private ArrayList<Device> devices;
     private String IDRoom;
     private String name;
-    
-    
+
     
     public Room(String IDRoom, String name, ArrayList<Device> devices){
         this.IDRoom = IDRoom;
@@ -29,63 +20,33 @@ public class Room {
         this.name = name;
         
     }
-    
-    public void addDevice(Device device){
-        /*boolean flag = false;
-        if(getDeviceCounter() < MAXDEVICES){
-            devices[getDeviceCounter()]=device;
-            setDeviceCounter(getDeviceCounter() + 1);
-            flag = true;
-        }
-       return flag;*/
-        devices.add(device);
-    }
 
-    /**
-     * @return the devices
-     */
+    /*GETTERS & SETTERS*/
     public ArrayList<Device> getDevices() {
         return devices;
     }
 
-    /**
-     * @param devices the devices to set
-     */
     public void setDevices(Device[] devices) {
         this.setDevices(devices);
     }
 
-    /**
-     * @return the name
-     */
     public String getName() {
         return name;
     }
 
-    /**
-     * @param name the name to set
-     */
     public void setName(String name) {
         this.name = name;
     }
 
-    public String toString(){
-        String output = "";
-        output=output+name +"\n";
-        for(int i=0;i<this.devices.size();i++){
-            output = output+devices.get(i).toString()+"\n";
-        }
-        return output;
-    }
-/**
-     * @return the deviceCounter
-     */
     public int getDeviceCounter() {
         return devices.size();
     }
 
-
     
+    public void addDevice(Device device){
+        devices.add(device);
+    }
+
     public int searchDevice(Device otherDevice){
         int index = 0;
         boolean  flag = false;
@@ -124,8 +85,16 @@ public class Room {
             devices.get(index).switchOnDevice();
         }
     }
-    
-    //Equals Room
+
+    public String toString(){
+        String output = "";
+        output=output+name +"\n";
+        for(int i=0;i<this.devices.size();i++){
+            output = output+devices.get(i).toString()+"\n";
+        }
+        return output;
+    }
+
     public boolean equals(Object obj){
         boolean flag = false;
         if(obj instanceof Room && obj!= null){
@@ -137,6 +106,5 @@ public class Room {
             return flag;
     }
 
-    
 }
 
