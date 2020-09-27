@@ -1,5 +1,8 @@
 package model;
 
+import exception.DeviceNotFoundException;
+import exception.RoomNotFoundException;
+
 import java.util.ArrayList;
 
 public class Level {
@@ -20,9 +23,6 @@ public class Level {
     }
 
     /***GETTERS & SETTERS***/
-    public int getRoomCounter() {
-        return rooms.size();
-    }
 
     public ArrayList<Room> getRooms() {
         return rooms;
@@ -40,42 +40,64 @@ public class Level {
         this.name = name;
     }
 
-
-    public int getCounterRooms(ArrayList<Room> rooms){
-        return rooms.size();
+    /**
+     *
+     * @param status The new device status
+     */
+    public void switchAllRooms(boolean status){
+        for(int index=0; index<rooms.size(); index++){
+            rooms.get(index).switchAllDevices(status);
+        }
     }
 
-    public void addRoom(Room room){
-        rooms.add(room);
+    /**
+     * @implNote Switch a room inside the level
+     * @param room The room to switch
+     * @param status The new device's status
+     * @throws RoomNotFoundException The room is not found
+     */
+    public void switchRoom(Room room, boolean status) throws RoomNotFoundException{
+        int index = rooms.indexOf(room);
+        if(index == -1){
+            throw new RoomNotFoundException("No se encontró la habitación solicitada");
+        }
+        rooms.get(index).switchAllDevices(status);
     }
 
-    public int searchRoom(Room otherRoom){
-            int index = 0;
-            boolean  flag = false;
-            for(index=0; index<rooms.size() && flag == false; index++){
-                if(rooms.get(index).equals(otherRoom)){
-                    flag = true;
-                    break;
-                }
-            }
-            if(flag == false){
-                index = -1;
-            }
-            return index;
+    /**
+     * @implNote Switch a device inside a specific room
+     * @param room The room to switch
+     * @param device The device to switch
+     * @param status The new device status
+     * @throws RoomNotFoundException The room is not found
+     * @throws DeviceNotFoundException The Device is not found inside the room
+     */
+    public void levelSwitchDevice(Room room, Device device, boolean status) throws RoomNotFoundException, DeviceNotFoundException {
+        int lRoom = rooms.indexOf(room);
+        if(lRoom == -1){
+            throw new RoomNotFoundException("The room can't be found");
+        }
+
+        ArrayList<Device> d = rooms.get(lRoom).getDevices();
+        int lDevice = d.indexOf(device);
+        if(lDevice == -1){
+            throw new DeviceNotFoundException("The device can't be found inside the room");
+        }
+        d.get(lDevice).switchDevice(status);
     }
 
-
-    public boolean RemoveRoom(Room room){
-            boolean flag= false;
-            int pos= searchRoom(room);
-
-            if(pos != -1){
-                   rooms.remove(pos);
-            }
-
-            return flag;
-    }
     
+    public void switchAllOffSameDevices(String nameDevices, boolean status){
+      for(int i=0; i<rooms.size(); i++){
+          ArrayList<Device> devices = rooms.get(i).getDevices();
+          for(int j=0; j<rooms.get(i).getDevices().size(); j++){
+              if(devices.get(j).getName().equals(nameDevices)){
+                  devices.get(j).switchDevice(status);
+              }
+          }
+      }          
+    }
+
     public String toString(){
         String output = "";
         output=output+name +"\n";
@@ -83,84 +105,6 @@ public class Level {
             output = output+rooms.get(i).toString()+"\n";
         }
         return output;
-    }
-    
-    public boolean switchAllOffRooms(){
-        for(int index=0; index<getRoomCounter(); index++){
-            rooms.get(index).switchOffAllDevices();
-        }
-        return true;
-    }
-    
-    public boolean switchAllOnRooms(){
-        for(int index=0; index<getRoomCounter(); index++){
-            rooms.get(index).switchOnAllDevices();
-        }
-        return true;
-    }
-    
-    public boolean switchOnRoom(Room room){
-        boolean flag=false;
-        int index;
-        index=this.searchRoom(room);
-        if(index>-1){
-            rooms.get(index).switchOnAllDevices();
-            flag=true;
-        }
-        return flag;
-    }
-
-    public boolean switchOffRoom(Room room){
-        boolean flag=false;
-        int index;
-        index=this.searchRoom(room);
-        if(index>-1){
-            rooms.get(index).switchOffAllDevices();
-            flag=true;
-        }
-        return flag;
-    }
-    public boolean levelSwitchOffDevice(Room room, Device device){
-       boolean found = false;
-       int lRoom = this.searchRoom(room);
-       if(lRoom > -1){
-           ArrayList<Device> d;
-            d = rooms.get(lRoom).getDevices();
-            int lDevice = rooms.get(lRoom).searchDevice(device);
-            
-            if(lDevice > -1)
-                d.get(lDevice).switchOffDevice();
-            else
-                found = true;
-       }
-       return found;
-    }
-    
-    public boolean levelSwitchOnDevice(Room room, Device device){
-       boolean found = false;
-       int lRoom = this.searchRoom(room);
-       if(lRoom > -1){
-            ArrayList<Device> d;
-            d = rooms.get(lRoom).getDevices();
-            int lDevice = rooms.get(lRoom).searchDevice(device);
-            
-            if(lDevice > -1)
-                d.get(lDevice).switchOnDevice();
-            else
-                found = true;
-       }
-       return found;
-    }
-    
-    public void switchAllOffSameDevices(String nameDevices){//Nuevo
-      for(int i=0; i<rooms.size(); i++){
-          ArrayList<Device> devices = rooms.get(i).getDevices();
-          for(int j=0; j<rooms.get(i).getDeviceCounter(); j++){
-              if(devices.get(j).getName().equals(nameDevices)){
-                  devices.get(j).switchOffDevice();
-              }
-          }
-      }          
     }
   
     public boolean equals(Object obj){
