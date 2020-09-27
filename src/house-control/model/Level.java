@@ -45,8 +45,8 @@ public class Level {
      * @param status The new device status
      */
     public void switchAllRooms(boolean status){
-        for(int index=0; index<rooms.size(); index++){
-            rooms.get(index).switchAllDevices(status);
+        for (Room room : rooms) {
+            room.switchAllDevices(status);
         }
     }
 
@@ -86,23 +86,22 @@ public class Level {
         d.get(lDevice).switchDevice(status);
     }
 
-    
-    public void switchAllOffSameDevices(String nameDevices, boolean status){
-      for(int i=0; i<rooms.size(); i++){
-          ArrayList<Device> devices = rooms.get(i).getDevices();
-          for(int j=0; j<rooms.get(i).getDevices().size(); j++){
-              if(devices.get(j).getName().equals(nameDevices)){
-                  devices.get(j).switchDevice(status);
-              }
-          }
-      }          
+    /**
+     *
+     * @param nameDevices The shared name of the device(s)
+     * @param status The new device's status
+     */
+    public void switchAllSameDevices(String nameDevices, boolean status){
+      for(Room room: rooms){
+          room.switchAllSameDevices(nameDevices, status);
+      }
     }
 
     public String toString(){
         String output = "";
         output=output+name +"\n";
-        for(int i=0;i<rooms.size();i++){
-            output = output+rooms.get(i).toString()+"\n";
+        for (Room room : rooms) {
+            output = output + room.toString() + "\n";
         }
         return output;
     }

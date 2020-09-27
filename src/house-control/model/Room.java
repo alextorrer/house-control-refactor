@@ -45,16 +45,29 @@ public class Room {
      * @param status The new status for the devices
      */
     public void switchAllDevices(boolean status){
-        for(int index=0; index<devices.size(); index++){
-            devices.get(index).switchDevice(status);
+        for (Device device : devices) {
+            device.switchDevice(status);
+        }
+    }
+
+    /**
+     *
+     * @param nameDevice The name of the device(s)
+     * @param status The new device's status
+     */
+    public void switchAllSameDevices(String nameDevice, boolean status){
+        for(Device device : devices){
+            if(device.getName().equals(nameDevice)){
+                device.switchDevice(status);
+            }
         }
     }
 
     public String toString(){
         String output = "";
         output=output+name +"\n";
-        for(int i=0;i<this.devices.size();i++){
-            output = output+devices.get(i).toString()+"\n";
+        for (Device device : this.devices) {
+            output = output + device.toString() + "\n";
         }
         return output;
     }
