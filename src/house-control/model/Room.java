@@ -8,7 +8,6 @@ public class Room {
     private ArrayList<Device> devices;
     private String IDRoom;
     private String name;
-
     
     public Room(String IDRoom, String name, ArrayList<Device> devices){
         this.IDRoom = IDRoom;

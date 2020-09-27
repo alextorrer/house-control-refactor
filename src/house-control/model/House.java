@@ -54,26 +54,26 @@ public class House {
         return counter;
     }
 
-public boolean toogleSpecificDeviceLevel(String level,String device){
-    boolean flag = false;
-    for(int i=0;i<levels.size(); i++){
-        if(levels.get(i).getName().equals(level)){
-        ArrayList<Room>rooms = levels.get(i).getRooms();
-        int counterRooms= levels.get(i).getRooms().size();
-        for(int j=0;j<counterRooms; j++){
-            ArrayList<Device> devices = rooms.get(j).getDevices();
-            int counterDevices = rooms.get(j).getDevices().size();
-            for(int k=0;k<counterDevices; k++){
-                if(devices.get(k).getName().equals(name)){
-                devices.get(k).toggleDevice();
-                flag = true;
+    public boolean toogleSpecificDeviceLevel(String level,String device){
+        boolean flag = false;
+        for(int i=0;i<levels.size(); i++){
+            if(levels.get(i).getName().equals(level)){
+            ArrayList<Room>rooms = levels.get(i).getRooms();
+            int counterRooms= levels.get(i).getRooms().size();
+            for(int j=0;j<counterRooms; j++){
+                ArrayList<Device> devices = rooms.get(j).getDevices();
+                int counterDevices = rooms.get(j).getDevices().size();
+                for(int k=0;k<counterDevices; k++){
+                    if(devices.get(k).getName().equals(name)){
+                    devices.get(k).toggleDevice();
+                    flag = true;
+                    }
                 }
+              }
             }
-          }
         }
+        return flag;
     }
-    return flag;
-}
 
     public String toString(){
         String output = "";

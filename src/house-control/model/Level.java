@@ -108,9 +108,9 @@ public class Level {
   
     public boolean equals(Object obj){
         boolean flag = false;
-        if(obj instanceof Level && obj!= null){
+        if(obj instanceof Level){
             Level otherDevice =(Level)obj;
-            if(this.name == otherDevice.name){
+            if(this.name.equals(otherDevice.name)){
                 flag = true;
             }
         }
