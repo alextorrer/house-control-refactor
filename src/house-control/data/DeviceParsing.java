@@ -1,3 +1,6 @@
+package data;
+
+import model.Device;
 
 import java.util.ArrayList;
 
