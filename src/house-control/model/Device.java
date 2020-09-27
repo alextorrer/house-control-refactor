@@ -17,6 +17,10 @@ public class Device {
     }
  
     /***GETTERS & SETTERS***/
+    public String getIDDevice() { return IDDevice; }
+
+    public void setIDDevice(String IDDevice){ this.IDDevice = IDDevice; }
+
     public String getName() {
         return name;
     }
@@ -41,45 +45,33 @@ public class Device {
         this.model = model;
     }
 
-    public boolean isStatus() {
+    public boolean getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void switchDevice(boolean status) {
         this.status = status;
     }
 
-    
+    public void toggleDevice(){
+        this.status = !(this.status);
+    }
+
     public String toString(){
         return name+" "+brand+" "+model +" " +status;
     }
 
     public boolean equals(Object obj){
         boolean flag = false;
-        if(obj instanceof Device && obj!= null){
+        if(obj instanceof Device){
             Device otherDevice =(Device)obj;
-            if(this.name == otherDevice.name &&
-               this.brand == otherDevice.brand && 
-               this.model == otherDevice.model){
+            if(this.name.equals(otherDevice.name) &&
+                this.brand.equals(otherDevice.brand) &&
+                this.model.equals(otherDevice.model)){
                 flag = true;
             }
         }
         return flag;
     }
-    
-    public boolean toggleDevice(){
-        this.status = !(this.status); 
-        return status;
-    }
-    
-    public boolean switchOffDevice(){
-        status = false;
-        return status;
-    }
-    
-    public boolean switchOnDevice(){
-        status = true;
-        return status;
-    }
-    
+
 }
