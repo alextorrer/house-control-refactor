@@ -27,8 +27,8 @@ public class Room {
         return devices;
     }
 
-    public void setDevices(Device[] devices) {
-        this.setDevices(devices);
+    public void setDevices(ArrayList<Device> devices) {
+        this.devices = devices;
     }
 
     public String getName() {
@@ -39,51 +39,14 @@ public class Room {
         this.name = name;
     }
 
-    public int getDeviceCounter() {
-        return devices.size();
-    }
 
-    
-    public void addDevice(Device device){
-        devices.add(device);
-    }
-
-    public int searchDevice(Device otherDevice){
-        int index = 0;
-        boolean  flag = false;
-        for(index=0; index<getDeviceCounter() && flag == false; index++){
-            if(devices.get(index).equals(otherDevice)){
-                flag = true;
-                break;
-            }
-        }
-        if(flag == false){
-            index = -1;
-        }
-        return index;
-    }
-    
-    public boolean  removeDevice(Device device){
-        boolean flag = false;
-        int pos =  searchDevice(device);
-        
-        if(pos!=-1){
-            devices.remove(pos);
-        }
-        
-        return flag;
-        
-    }
-    
-    public void switchOffAllDevices(){
-        for(int index=0; index<getDeviceCounter(); index++){
-            devices.get(index).switchOffDevice();
-        }
-    }
-    
-    public void switchOnAllDevices(){
-        for(int index=0; index<getDeviceCounter(); index++){
-            devices.get(index).switchOnDevice();
+    /**
+     *
+     * @param status The new status for the devices
+     */
+    public void switchAllDevices(boolean status){
+        for(int index=0; index<devices.size(); index++){
+            devices.get(index).switchDevice(status);
         }
     }
 
@@ -98,13 +61,13 @@ public class Room {
 
     public boolean equals(Object obj){
         boolean flag = false;
-        if(obj instanceof Room && obj!= null){
+        if(obj instanceof Room){
             Room otherRoom =(Room)obj;
-            if(this.name == otherRoom.name){
+            if(this.name.equals(otherRoom.name)){
                     flag = true;
-                    }
             }
-            return flag;
+        }
+        return flag;
     }
 
 }
