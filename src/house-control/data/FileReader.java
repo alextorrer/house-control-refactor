@@ -3,41 +3,30 @@ package data;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 
 public class FileReader {
-    
-    Scanner file;
+
+    private String path;
    
     public FileReader(String path){
-        
-        try {
-            file = new Scanner(new File(path));
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(FileReader.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println(ex.getMessage());
-        }
-        
+        this.path = path;
     }
-    
-    public String getContentFile(){
-     String content = "";
+
+    /**
+     *
+     * @return the parsed file in a single string
+     * @throws FileNotFoundException to be handled by the caller
+     */
+    public String getContentFile() throws FileNotFoundException{
+        Scanner file = new Scanner(new File(this.path));
+        String content = "";
         while (file.hasNextLine()) {
-            content+=file.nextLine()+"\n";
+            content += file.nextLine()+"\n";
         }
         file.close();
-    return content;
+
+        return content;
     }
-  
-    public void closeFile(){
-        file.close();
-    }
-    
-    
-    public static void main(String ar[]){
-        System.out.println(new FileReader("Devices.txt").getContentFile());
-    
-    }
+
 }
