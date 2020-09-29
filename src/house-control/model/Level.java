@@ -5,7 +5,7 @@ import exception.RoomNotFoundException;
 
 import java.util.ArrayList;
 
-public class Level {
+public class Level implements DeviceHandler{
 
     private String name;
     private String IDLevel;
@@ -95,6 +95,33 @@ public class Level {
       for(Room room: rooms){
           room.switchAllSameDevices(nameDevices, status);
       }
+    }
+
+    public int countDevicesOn(){
+        int devicesOn = 0;
+        for(Room room : rooms){
+            devicesOn += room.countDevicesOn();
+        }
+        return devicesOn;
+    }
+
+    public int countSpecificDevice(String name){
+        int sameDevices = 0;
+        for(Room room : rooms){
+            sameDevices += room.countSpecificDevice(name);
+        }
+        return sameDevices;
+    }
+
+    public boolean toggleSpecificDevice(String name){
+        boolean toggled = false;
+        for(Room room : rooms){
+            if(room.toggleSpecificDevice(name)){
+                toggled = true;
+                break;
+            }
+        }
+        return toggled;
     }
 
     public String toString(){

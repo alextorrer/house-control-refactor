@@ -3,7 +3,7 @@ package model;
 import java.util.ArrayList;
 
 
-public class Room {
+public class Room implements DeviceHandler{
 
     private ArrayList<Device> devices;
     private String IDRoom;
@@ -60,6 +60,38 @@ public class Room {
                 device.switchDevice(status);
             }
         }
+    }
+
+    public int countDevicesOn(){
+        int devicesOn = 0;
+        for(Device device : devices){
+            if(device.getStatus()){
+                devicesOn++;
+            }
+        }
+        return devicesOn;
+    }
+
+    public int countSpecificDevice(String name){
+        int sameDevices = 0;
+        for(Device device : devices){
+            if(device.getName().equals(name)){
+                sameDevices++;
+            }
+        }
+        return sameDevices;
+    }
+
+    public boolean toggleSpecificDevice(String name){
+        boolean toggled = false;
+        for(Device device : devices){
+            if(device.getName().equals(name)){
+                device.toggleDevice();
+                toggled = true;
+                break;
+            }
+        }
+        return toggled;
     }
 
     public String toString(){

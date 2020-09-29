@@ -3,7 +3,7 @@ package model;
 import java.util.ArrayList;
 
 
-public class House {
+public class House implements DeviceHandler{
     private ArrayList<Level> levels;
     private String name;
 
@@ -20,59 +20,29 @@ public class House {
     
     public int countDevicesOn(){
         int devicesOn=0;
-        for(int i=0;i<levels.size(); i++){
-            ArrayList<Room>rooms = levels.get(i).getRooms();
-            int counterRooms= levels.get(i).getRooms().size();
-            for(int j=0;j<counterRooms; j++){
-                ArrayList<Device> devices = rooms.get(j).getDevices();
-                int counterDevices = rooms.get(j).getDevices().size();
-                for(int k=0;k<counterDevices; k++){
-                    if(devices.get(k).getStatus()){
-                    devicesOn++;
-                    }
-                }
-            }
+        for(Level level : levels){
+            devicesOn += level.countDevicesOn();
         }
         return devicesOn;
     }
 
     public int countSpecificDevice(String name){
-        int counter=0;
-        for(int i=0;i<levels.size(); i++){
-            ArrayList<Room>rooms = levels.get(i).getRooms();
-            int counterRooms= levels.get(i).getRooms().size();
-            for(int j=0;j<counterRooms; j++){
-                ArrayList<Device> devices = rooms.get(j).getDevices();
-                int counterDevices = rooms.get(j).getDevices().size();
-                for(int k=0;k<counterDevices; k++){
-                    if(devices.get(k).getName().equals(name)){
-                    counter++;
-                    }
-                }
-            }
+        int sameDevices=0;
+        for(Level level : levels){
+            sameDevices += level.countSpecificDevice(name);
         }
-        return counter;
+        return sameDevices;
     }
 
-    public boolean toogleSpecificDeviceLevel(String level,String device){
-        boolean flag = false;
-        for(int i=0;i<levels.size(); i++){
-            if(levels.get(i).getName().equals(level)){
-            ArrayList<Room>rooms = levels.get(i).getRooms();
-            int counterRooms= levels.get(i).getRooms().size();
-            for(int j=0;j<counterRooms; j++){
-                ArrayList<Device> devices = rooms.get(j).getDevices();
-                int counterDevices = rooms.get(j).getDevices().size();
-                for(int k=0;k<counterDevices; k++){
-                    if(devices.get(k).getName().equals(name)){
-                    devices.get(k).toggleDevice();
-                    flag = true;
-                    }
-                }
-              }
+    public boolean toggleSpecificDevice(String device){
+        boolean toggled = false;
+        for(Level level : levels){
+            if(level.toggleSpecificDevice(name)){
+                toggled = true;
+                break;
             }
         }
-        return flag;
+        return toggled;
     }
 
     public String toString(){
